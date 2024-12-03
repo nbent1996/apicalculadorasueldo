@@ -71,6 +71,19 @@ public class SalarioService {
             Long deduccionesHijos = factorDeduccionPersonasACargo * (cantHijosSinDiscapacidad * Constants.DEDUCCION_HIJO_SIN_DISCAPACIDAD +
                                                                      cantHijosConDiscapacidad * Constants.DEDUCCION_HIJO_CON_DISCAPACIDAD);
 
+            Double aporteAdicionalFondoSolidaridad = salario.getAdicionalFondoSolidaridad() ? Constants.ADICIONAL_FONDO_SOLIDARIDAD.doubleValue() : 0;
+
+            Double deducciones = deduccionesHijos + 
+                                    salario.getAportesJubilatorios() + 
+                                    salario.getAportesFonasa() + 
+                                    salario.getAportesFRL() + 
+                                    ((salario.getAportesFondoSolidaridad()*Constants.BPC)/12) +  
+                                    aporteAdicionalFondoSolidaridad +
+                                    salario.getAportesCJPPU() +
+                                    salario.getAportesOtrasDeducciones();
+            
+            /*Cantidad de impuesto de IRPF de cada franja */
+            
         }
 
 
