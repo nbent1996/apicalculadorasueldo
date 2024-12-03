@@ -22,7 +22,7 @@ public class Constants {
     public static final Integer TOPE_APORTE_JUBILATORIO=236309;
 
     /*Porcentaje de aporte de fonasa para personas con salario hasta 2.5BPC */
-    public static final ArrayList<Integer> APORTE_FONASA_HASTA_25BPC = new ArrayList<>(Arrays.asList(3,2,0)); /*base 3, conyuge 2, hijos 0*/
+    public static final ArrayList<Double> APORTE_FONASA_HASTA_25BPC = new ArrayList<>(Arrays.asList(3.0,2.0,0.0)); /*base 3, conyuge 2, hijos 0*/
     
     /*Porcentaje de aporte de fonasa para personas con salario mayor a 2.5 BPC */
     public static final ArrayList<Double> APORTE_FONASA_DESDE_25BPC = new ArrayList<>(Arrays.asList(4.5,2.0, 1.5)); /*base 4.5, conyuge 2, hijos 1.5*/
