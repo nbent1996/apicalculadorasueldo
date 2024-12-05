@@ -13,7 +13,7 @@ public class Constants {
      * La ultima franja tiene un valor muy alto.
      * tasa es el porcentaje de impuesto.
     */
-    public static final ArrayList<Long> FRANJAS_IRPF = new ArrayList<>();
+    public static final ArrayList<FranjaIRPF> FRANJAS_IRPF = new ArrayList<>();
 
     /*Porcentaje de aportes jubilatorios*/
     public static final Integer APORTE_JUBILATORIO = 15;
@@ -52,15 +52,14 @@ public class Constants {
     public static final Long ADICIONAL_FONDO_SOLIDARIDAD = ((5/4) * BPC) / 12;
 
     public Constants(){
-        /*Añadir franjas irpf*/
-        FRANJAS_IRPF.add(0L); /*desde 0 BPC hasta 7 BPC, tasa 0*/ 
-        FRANJAS_IRPF.add(10L); /*desde 7 BPC hasta 10 BPC, tasa 10*/
-        FRANJAS_IRPF.add(15L); /*desde 10 BPC hasta 15 BPC, tasa 15*/
-        FRANJAS_IRPF.add(24L); /*desde 15 BPC hasta 30 BPC, tasa 24*/
-        FRANJAS_IRPF.add(25L); /*desde 30 BPC hasta 50 BPC, tasa 24*/
-        FRANJAS_IRPF.add(27L); /*desde 50 BPC hasta 75 BPC, tasa 27*/
-        FRANJAS_IRPF.add(31L); /*desde 75 BPC hasta 115 BPC, tasa 31*/
-        FRANJAS_IRPF.add(36L); /*desde 115 BPC hasta 1000 BPC, tasa 36*/
+        FRANJAS_IRPF.add(new FranjaIRPF(0, 7, 0)); // desde 0 BPC hasta 7 BPC, tasa 0
+        FRANJAS_IRPF.add(new FranjaIRPF(7, 10, 10)); // desde 7 BPC hasta 10 BPC, tasa 10
+        FRANJAS_IRPF.add(new FranjaIRPF(10, 15, 15)); // desde 10 BPC hasta 15 BPC, tasa 15
+        FRANJAS_IRPF.add(new FranjaIRPF(15, 30, 24)); // desde 15 BPC hasta 30 BPC, tasa 24
+        FRANJAS_IRPF.add(new FranjaIRPF(30, 50, 25)); // desde 30 BPC hasta 50 BPC, tasa 25
+        FRANJAS_IRPF.add(new FranjaIRPF(50, 75, 27)); // desde 50 BPC hasta 75 BPC, tasa 27
+        FRANJAS_IRPF.add(new FranjaIRPF(75, 115, 31)); // desde 75 BPC hasta 115 BPC, tasa 31
+        FRANJAS_IRPF.add(new FranjaIRPF(115, 1000, 36)); // desde 115 BPC hasta 1000 BPC, tasa 36
     }
 
 

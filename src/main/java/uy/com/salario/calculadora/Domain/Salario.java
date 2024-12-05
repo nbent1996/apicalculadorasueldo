@@ -9,9 +9,11 @@ public class Salario {
     private Double aportesFRL;
     private Double aportesIRPF;
     private Double aportesFondoSolidaridad;
+    private boolean aportaFondoSolidaridad;
     private boolean adicionalFondoSolidaridad;
     private Double aportesCJPPU;
     private Double aportesOtrasDeducciones;
+    private DetalleIRPF detalleIRPF;
         
     public Salario(Double aportesJubilatorios, Double aportesFonasa, double aportesFRL) {
         this.aportesJubilatorios = aportesJubilatorios;
@@ -32,6 +34,9 @@ public class Salario {
         this.aportesIRPF = aportesIRPF;
         this.nominal = -1.0;
         this.liquido = -1.0;
+    }
+    
+    public Salario() {
     }
     public Double getNominal() {
         return nominal;
@@ -93,6 +98,18 @@ public class Salario {
     }
     public void setAdicionalFondoSolidaridad(boolean adicionalFondoSolidaridad) {
         this.adicionalFondoSolidaridad = adicionalFondoSolidaridad;
+    }
+    public DetalleIRPF getDetalleIRPF() {
+        return detalleIRPF;
+    }
+    public void setDetalleIRPF(DetalleIRPF detalleIRPF) {
+        this.detalleIRPF = detalleIRPF;
+    }
+    public boolean getAportaFondoSolidaridad() {
+        return aportaFondoSolidaridad;
+    }
+    public void setAportaFondoSolidaridad(boolean aportaFondoSolidaridad) {
+        this.aportaFondoSolidaridad = aportaFondoSolidaridad;
     }
 
   
