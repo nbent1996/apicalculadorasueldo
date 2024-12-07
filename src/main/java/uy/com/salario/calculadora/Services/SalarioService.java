@@ -15,11 +15,11 @@ import uy.com.salario.calculadora.Domain.Salario;
 public class SalarioService {
         private static final Logger logger = LoggerFactory.getLogger(SalarioService.class);
 
-        public Salario getSalarioLiquidoFromNominal(Double nominal, boolean tieneHijos, boolean tieneConyuge, Double factorDeduccionPersonasACargo, int cantHijosSinDiscapacidad, int cantHijosConDiscapacidad, boolean aportaFondoSolidariad, boolean adicionalFondoSolidaridad, Double aportesCJPPU, Double otrasDeducciones ){
+        public Salario getSalarioLiquidoFromNominal(Double nominal, boolean tieneHijos, boolean tieneConyuge, Double factorDeduccionPersonasACargo, int cantHijosSinDiscapacidad, int cantHijosConDiscapacidad, Double aportesBPCFondoSolidariad, boolean adicionalFondoSolidaridad, Double aportesCJPPU, Double otrasDeducciones ){
             Salario s = new Salario();
             s.setNominal(nominal.doubleValue());
             s.setAdicionalFondoSolidaridad(adicionalFondoSolidaridad);
-            s.setAportaFondoSolidaridad(aportaFondoSolidariad);
+            s.setAportesBPCFondoSolidaridad(aportesBPCFondoSolidariad);
             s.setAportesCJPPU(aportesCJPPU);
             s.setAportesOtrasDeducciones(otrasDeducciones);
             return calcularImpuestos(s,tieneHijos, tieneConyuge, factorDeduccionPersonasACargo,cantHijosSinDiscapacidad, cantHijosConDiscapacidad);
@@ -53,7 +53,11 @@ public class SalarioService {
             Double aportesJubilatorios = Math.min(Constants.TOPE_APORTE_JUBILATORIO, salario.getNominal()) * Constants.APORTE_JUBILATORIO * 0.01;
             Double aportesFonasa = salario.getNominal() * porcentajeFonasa * 0.01;
             Double aporteFrl = salario.getNominal() * Constants.APORTE_FRL * 0.01;
-            return new Salario(aportesJubilatorios, aportesFonasa, aporteFrl);
+            salario.setAportesJubilatorios(aportesJubilatorios);
+            salario.setAportesFonasa(aportesFonasa);
+            salario.setAportesFRL(aporteFrl);
+
+            return salario;
         }
         public Salario calcularAportesIRPF(Salario salario, Double factorDeduccionPersonasACargo, int cantHijosSinDiscapacidad, int cantHijosConDiscapacidad){
             /*
@@ -62,7 +66,7 @@ public class SalarioService {
                 aportesJubilatorios,
                 aportesFONASA,
                 aporteFRL,
-                aportesFondoSolidaridad,
+                aportesBPCFondoSolidaridad,
                 adicionalFondoSolidaridad,
                 aportesCJPPU,
                 otrasDeducciones
@@ -80,20 +84,22 @@ public class SalarioService {
             Double deduccionesHijos = factorDeduccionPersonasACargo * (cantHijosSinDiscapacidad * Constants.DEDUCCION_HIJO_SIN_DISCAPACIDAD +
                                                                      cantHijosConDiscapacidad * Constants.DEDUCCION_HIJO_CON_DISCAPACIDAD);
 
-            Double aporteAdicionalFondoSolidaridad = salario.getAdicionalFondoSolidaridad() ? Constants.ADICIONAL_FONDO_SOLIDARIDAD.doubleValue() : 0;
+           Double aporteAdicionalFondoSolidaridad = salario.getAdicionalFondoSolidaridad() ? Constants.ADICIONAL_FONDO_SOLIDARIDAD.doubleValue() : 0;
+        
+           salario.setAportesFondoSolidaridad((salario.getAportesBPCFondoSolidaridad()*Constants.BPC)/12);
 
             Double deducciones = deduccionesHijos + 
                                     salario.getAportesJubilatorios() + 
                                     salario.getAportesFonasa() + 
                                     salario.getAportesFRL() + 
-                                    ((salario.getAportesFondoSolidaridad()*Constants.BPC)/12) +  
+                                    ((salario.getAportesBPCFondoSolidaridad()*Constants.BPC)/12) +  
                                     aporteAdicionalFondoSolidaridad +
                                     salario.getAportesCJPPU() +
                                     salario.getAportesOtrasDeducciones();
             
             /*Cantidad de impuesto de IRPF de cada franja */
             DetalleIRPF detalleIRPF = new DetalleIRPF(deducciones, tasaDeducciones);
-
+            Double totalIRPF = 0.0;
             for (FranjaIRPF franja : Constants.FRANJAS_IRPF) {
             double hasta = franja.getHasta() != 0 ? franja.getHasta() : 999;
             if (salario.getNominal() > franja.getDesde() * Constants.BPC) {
@@ -107,10 +113,10 @@ public class SalarioService {
             for (double impuesto : detalleIRPF.getImpuestoFranja()) {
             sumaImpuestos += impuesto;
                 }
-            double totalIRPF = sumaImpuestos - (deducciones * tasaDeducciones * 0.01);
-            salario.setAportesIRPF(totalIRPF);
-            salario.setDetalleIRPF(detalleIRPF);
+            totalIRPF = sumaImpuestos - (deducciones * tasaDeducciones * 0.01);
         }
+        salario.setAportesIRPF(totalIRPF);
+        salario.setDetalleIRPF(detalleIRPF);
                     return salario;
 } 
         public Salario calcularImpuestos(Salario salario, boolean tieneHijos, boolean tieneConyuge, Double factorDeduccionPersonasACargo, int cantHijosSinDiscapacidad, int cantHijosConDiscapacidad){

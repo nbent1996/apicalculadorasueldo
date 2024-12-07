@@ -13,7 +13,6 @@ import uy.com.salario.calculadora.Domain.Salario;
 import uy.com.salario.calculadora.Services.SalarioService;
 
 @SpringBootTest
-@Disabled("En construccion")
 class CalculadoraApplicationTests {
 	private SalarioService salarioService;
 
@@ -21,31 +20,30 @@ class CalculadoraApplicationTests {
     void setUp() {
         salarioService = new SalarioService();
     }
-/*
+
     @Test
     void testSalarioLiquidoValidScenario1() {
         // Escenario válido con hijos sin discapacidad y factor de deducción 0.5
         Double nominal = 25000.0;
         Salario salario = salarioService.getSalarioLiquidoFromNominal(
-                nominal, true, false, 0.5, 2, 0, true, false, 1000.0, 2000.0);
+                nominal, true, false, 0.5, 2, 0, 1.0, false, 1000.0, 2000.0);
 
         assertNotNull(salario);
         // Comprueba que el salario líquido esté calculado (ajustar el valor esperado)
-        assertEquals(, salario.getLiquido(), 0.01);
+        assertEquals(19725, salario.getLiquido(), 0.01);
     }
-
     @Test
     void testSalarioLiquidoValidScenario2() {
         // Escenario válido con hijos con discapacidad y factor de deducción 1.0
         Double nominal = 150000.0;
         Salario salario = salarioService.getSalarioLiquidoFromNominal(
-                nominal, true, true, 1.0, 0, 1, false, false, 3000.0, 1000.0);
+                nominal, true, true, 1.0, 0, 1, 0.0, false, 3000.0, 1000.0);
 
         assertNotNull(salario);
         // Comprueba que el salario líquido esté calculado (ajustar el valor esperado)
-        assertEquals(, salario.getLiquido(), 0.01);
+        assertEquals(97680.55, salario.getLiquido(), 0.01);
     }
-
+/*
     @Test
     void testSalarioLiquidoInvalidFactorDeduccion() {
         // Escenario inválido: el factor de deducción no está dentro de los valores permitidos

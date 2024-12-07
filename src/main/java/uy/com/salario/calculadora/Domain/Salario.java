@@ -9,12 +9,12 @@ public class Salario {
     private Double aportesFRL;
     private Double aportesIRPF;
     private Double aportesFondoSolidaridad;
-    private boolean aportaFondoSolidaridad;
     private boolean adicionalFondoSolidaridad;
     private Double aportesCJPPU;
     private Double aportesOtrasDeducciones;
     private DetalleIRPF detalleIRPF;
-        
+    private Double aportesBPCFondoSolidaridad;
+
     public Salario(Double aportesJubilatorios, Double aportesFonasa, double aportesFRL) {
         this.aportesJubilatorios = aportesJubilatorios;
         this.aportesFonasa = aportesFonasa;
@@ -105,12 +105,13 @@ public class Salario {
     public void setDetalleIRPF(DetalleIRPF detalleIRPF) {
         this.detalleIRPF = detalleIRPF;
     }
-    public boolean getAportaFondoSolidaridad() {
-        return aportaFondoSolidaridad;
+    public Double getAportesBPCFondoSolidaridad() {
+        return aportesBPCFondoSolidaridad;
     }
-    public void setAportaFondoSolidaridad(boolean aportaFondoSolidaridad) {
-        this.aportaFondoSolidaridad = aportaFondoSolidaridad;
+    public void setAportesBPCFondoSolidaridad(Double aportesBPCFondoSolidaridad) {
+        this.aportesBPCFondoSolidaridad = aportesBPCFondoSolidaridad;
     }
+
 
   
     

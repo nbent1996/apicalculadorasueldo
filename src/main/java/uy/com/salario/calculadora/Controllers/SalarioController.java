@@ -20,7 +20,7 @@ public class SalarioController {
     private SalarioService salarioService;
 
     @PostMapping("/calcularSalario")
-    public Salario calcularSalario(Double nominal, boolean tieneHijos, boolean tieneConyuge, Double factorDeduccionPersonasACargo, int cantHijosSinDiscapacidad, int cantHijosConDiscapacidad, boolean aportaFondoSolidaridad, boolean adicionalFondoSolidaridad, Double aportesCJPPU, Double otrasDeducciones){
+    public Salario calcularSalario(Double nominal, boolean tieneHijos, boolean tieneConyuge, Double factorDeduccionPersonasACargo, int cantHijosSinDiscapacidad, int cantHijosConDiscapacidad, Double aportaFondoSolidaridad, boolean adicionalFondoSolidaridad, Double aportesCJPPU, Double otrasDeducciones){
         return salarioService.getSalarioLiquidoFromNominal(nominal, tieneHijos, tieneConyuge, factorDeduccionPersonasACargo, cantHijosSinDiscapacidad, cantHijosConDiscapacidad, aportaFondoSolidaridad, adicionalFondoSolidaridad, aportesCJPPU, otrasDeducciones);
     
     
