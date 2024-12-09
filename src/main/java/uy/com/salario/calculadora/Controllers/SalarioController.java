@@ -1,5 +1,7 @@
 package uy.com.salario.calculadora.Controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +18,21 @@ import uy.com.salario.calculadora.Services.SalarioService;
 @RequestMapping("/salarios")
 public class SalarioController {
     
+    private static final Logger logger = LoggerFactory.getLogger(SalarioController.class);
+
+
     @Autowired
     private SalarioService salarioService;
 
     @PostMapping("/calcularSalario")
-    public Salario calcularSalario(Double nominal, boolean tieneHijos, boolean tieneConyuge, Double factorDeduccionPersonasACargo, int cantHijosSinDiscapacidad, int cantHijosConDiscapacidad, boolean aportaFondoSolidaridad, boolean adicionalFondoSolidaridad, Double aportesCJPPU, Double otrasDeducciones){
-        return salarioService.getSalarioLiquidoFromNominal(nominal, tieneHijos, tieneConyuge, factorDeduccionPersonasACargo, cantHijosSinDiscapacidad, cantHijosConDiscapacidad, aportaFondoSolidaridad, adicionalFondoSolidaridad, aportesCJPPU, otrasDeducciones);
+    public Salario calcularSalario(Double nominal, boolean tieneHijos, boolean tieneConyuge, Double factorDeduccionPersonasACargo, int cantHijosSinDiscapacidad, int cantHijosConDiscapacidad, Double aporteFondoSolidaridad, boolean adicionalFondoSolidaridad, Double aportesCJPPU, Double otrasDeducciones){
+        try {
+            return salarioService.getSalarioLiquidoFromNominal(nominal, tieneHijos, tieneConyuge, factorDeduccionPersonasACargo, cantHijosSinDiscapacidad, cantHijosConDiscapacidad, aporteFondoSolidaridad, adicionalFondoSolidaridad, aportesCJPPU, otrasDeducciones);
+        } catch (Exception e) {
+            logger.error("Error en la invocacion de calcularSalario. " + e.getMessage());
+            
+        }
+                return null;
     
     
     }

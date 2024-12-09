@@ -9,7 +9,7 @@ public class Salario {
     private Double aportesFRL;
     private Double aportesIRPF;
     private Double aportesFondoSolidaridad;
-    private boolean aportaFondoSolidaridad;
+    private Double aporteBPCFondoSolidaridad;
     private boolean adicionalFondoSolidaridad;
     private Double aportesCJPPU;
     private Double aportesOtrasDeducciones;
@@ -105,12 +105,28 @@ public class Salario {
     public void setDetalleIRPF(DetalleIRPF detalleIRPF) {
         this.detalleIRPF = detalleIRPF;
     }
-    public boolean getAportaFondoSolidaridad() {
-        return aportaFondoSolidaridad;
+    public Double getAporteBPCFondoSolidaridad() {
+        return aporteBPCFondoSolidaridad;
     }
-    public void setAportaFondoSolidaridad(boolean aportaFondoSolidaridad) {
-        this.aportaFondoSolidaridad = aportaFondoSolidaridad;
+    public void setAporteBPCFondoSolidaridad(Double aporteBPCFondoSolidaridad) {
+        this.aporteBPCFondoSolidaridad = aporteBPCFondoSolidaridad;
     }
+    @Override
+    public String toString() {
+        return "Salario [nominal=" + nominal + ", liquido=" + liquido + ", aportesJubilatorios=" + aportesJubilatorios
+                + ", aportesFonasa=" + aportesFonasa + ", aportesFRL=" + aportesFRL + ", aportesIRPF=" + aportesIRPF
+                + ", aportesFondoSolidaridad=" + aportesFondoSolidaridad + ", aporteBPCFondoSolidaridad="
+                + aporteBPCFondoSolidaridad + ", adicionalFondoSolidaridad=" + adicionalFondoSolidaridad
+                + ", aportesCJPPU=" + aportesCJPPU + ", aportesOtrasDeducciones=" + aportesOtrasDeducciones
+                + ", detalleIRPF=" + detalleIRPF + ", getNominal()=" + getNominal() + ", getLiquido()=" + getLiquido()
+                + ", getAportesJubilatorios()=" + getAportesJubilatorios() + ", getAportesFonasa()="
+                + getAportesFonasa() + ", getAportesFRL()=" + getAportesFRL() + ", getAportesIRPF()=" + getAportesIRPF()
+                + ", getAportesFondoSolidaridad()=" + getAportesFondoSolidaridad() + ", getAportesCJPPU()="
+                + getAportesCJPPU() + ", getAportesOtrasDeducciones()=" + getAportesOtrasDeducciones()
+                + ", getAdicionalFondoSolidaridad()=" + getAdicionalFondoSolidaridad() + ", getDetalleIRPF()="
+                + getDetalleIRPF() + ", getAporteBPCFondoSolidaridad()=" + getAporteBPCFondoSolidaridad() + "]";
+    }
+    
 
   
     
